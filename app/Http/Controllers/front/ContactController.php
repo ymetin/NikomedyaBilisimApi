@@ -32,7 +32,7 @@ class ContactController extends Controller
             'message' => $request->message,
         ];
 
-        Mail::to('admin@example.com')->send(new ContactEmail($mailData));
+        Mail::to('info@nikomedyabilisim.com')->send(new ContactEmail($mailData));
 
         return response()->json([
             'status' => true,

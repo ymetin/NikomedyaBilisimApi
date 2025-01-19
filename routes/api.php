@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\ArticleController;
 use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\admin\GalleryController;
 use App\Http\Controllers\admin\MemberController;
 use App\Http\Controllers\admin\ProjectController;
 use App\Http\Controllers\admin\ServiceController;
@@ -87,6 +88,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     //Temp Image Routes
     Route::post('temp-images', [TempImageController::class, 'store']);
+
+    //Gallery Routes
+    Route::post('gallery', [GalleryController::class, 'store']);
+    Route::get('gallery', [GalleryController::class, 'index']);
+    Route::delete('gallery/{id}', [GalleryController::class, 'destroy']);
 });
 
 /* Route::get('/user', function (Request $request) {
