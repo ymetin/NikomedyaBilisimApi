@@ -12,6 +12,7 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\front\ServiceController as FrontServiceController;
 use App\Http\Controllers\front\ProjectController as FrontProjectController;
 use App\Http\Controllers\front\ArticleController as FrontArticleController;
+use App\Http\Controllers\admin\GalleryController as FrontGalleryController;
 use App\Http\Controllers\front\ContactController;
 use App\Http\Controllers\front\TestimonialController as FrontTestimonialController;
 use App\Http\Controllers\front\MemberController as FrontMemberController;
@@ -39,6 +40,8 @@ Route::get('get-members', [FrontMemberController::class, 'index']);
 
 Route::get('get-site-info', [SiteController::class, 'index']);
 Route::get('company-info', [SiteController::class, 'about_us']);
+
+Route::get('get-gallery', [FrontGalleryController::class, 'index']);
 
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
