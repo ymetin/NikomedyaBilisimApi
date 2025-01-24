@@ -96,6 +96,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('gallery', [GalleryController::class, 'store']);
     Route::get('gallery', [GalleryController::class, 'index']);
     Route::delete('gallery/{id}', [GalleryController::class, 'destroy']);
+    Route::post('bulk-delete-gallery',[GalleryController::class, 'bulkDelete']);
 });
 
 /* Route::get('/user', function (Request $request) {

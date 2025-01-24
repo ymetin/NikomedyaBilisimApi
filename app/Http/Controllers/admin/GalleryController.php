@@ -25,8 +25,15 @@ class GalleryController extends Controller
 
     public function store(Request $request)
     {
+        if ($request->all() == null) {
+            return response()->json([
+                'status' => false,
+            ]);
+        }
         $validator = Validator::make($request->all(), [
-            'file.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'file' => 'required',
+            'file.*' => 'image|mimes:jpeg,png,jpg,gif|max:1048',
+            
         ]);
 
         if ($validator->fails()) {
@@ -65,7 +72,7 @@ class GalleryController extends Controller
 
         return response()->json([
             'status' => 200,
-            'message' => 'Resim başarıyla kaydedildi.',
+            'message' => 'Resimler başarıyla kaydedildi.',
         ], 200);
     }
 
@@ -90,6 +97,34 @@ class GalleryController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Resim başarıyla silindi.'
+        ]);
+    }
+
+    public function bulkDelete(Request $request){
+       
+        $ids = $request->all();
+
+        foreach ($ids as $id) {
+            $gallery = Gallery::find($id);
+
+            if ($gallery == null) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Böyle bir resim bulunamadı',
+                ]);
+            }
+
+            if ($gallery->name != '') {
+                File::delete(public_path('uploads/gallery/' . $gallery->name));
+                File::delete(public_path('uploads/gallery/small/' . $gallery->name));
+            }
+
+            $gallery->delete();
+        }
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Resimler başarıyla silindi.'
         ]);
     }
 }
